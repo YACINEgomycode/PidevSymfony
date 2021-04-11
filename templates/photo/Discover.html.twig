@@ -1,0 +1,24 @@
+{%  extends 'base.html.twig' %}
+{% block body %}
+<form method="POST" class="search_form" name="rs" action="{{ path('rechercheP') }}">
+    <div class="search_bar">
+    <label class="col-sm-2 col-form-label">Recherche</label>
+        <div class="Search">
+        <input type="text" style="width: 18rem;"class="form-control" name="tfrech"/>
+        <input type="Submit" class="btn btn-primary" value="Search"/></div>
+    </div>
+</form>
+    <div class="pictures">
+{% for f in tab %}
+
+    <div class="card" style="width: 18rem;">
+        <img src="{{ asset(f.url)}}" class="card-img-top" alt="..." >
+        <div class="card-body"  style="width: 18rem;">
+            <h5 class="card-title">{{ f.titre }}</h5>
+            <a href={{ path('ShowPic',{'id':f.idPhoto}) }} class="btn btn-primary" >Go somewhere</a>
+        </div>
+    </div>
+
+{% endfor %}
+    </div>
+{% endblock %}

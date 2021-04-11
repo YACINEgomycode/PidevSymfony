@@ -1,0 +1,44 @@
+{%  extends 'base.html.twig' %}
+{% block NavBar %}    {{ parent() }}{% endblock %}
+ {% block body %}
+
+     <img src="{{ asset(pic.url)}}" class="card-img-top" alt="..." >
+
+
+
+<div class="modal-body">
+    {{ form_start(f1)}}
+    <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Titre</label>
+        <div class="col-sm-10">
+            {{ form_widget(f1.titre, { 'attr': {'class': 'form-control','value': ''} }) }}
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputPassword"  class="col-sm-2 col-form-label">Theme</label>
+        <div class="col-sm-10">
+            {{ form_widget(f1.theme, { 'attr': {'class': 'form-control','value': ''} }) }}
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Localisation</label>
+        <div class="col-sm-10">
+            {{ form_widget(f1.localisation, { 'attr': {'class': 'form-control','value': ''} }) }}
+
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Couleur</label>
+        <div class="col-sm-10">
+            {{ form_widget(f1.couleur, { 'attr': {'class': 'form-control form-control-color','value': ''} }) }}
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        {{ form_widget(f1.submit) }}
+    </div>
+    {{ form_end(f1)}}
+</div>
+ {% endblock %}
