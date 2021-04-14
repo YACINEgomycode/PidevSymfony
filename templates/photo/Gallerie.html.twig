@@ -1,7 +1,55 @@
 {%  extends 'base.html.twig' %}
 {% block body %}
-<div>
-    <div>
+    <div class="add-photo-page">
+
+        <div class="modal-bodyy">
+            {{ form_start(f1,{'attr': {'novalidate': 'novalidate'}} )}}
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Titre</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f1.titre, { 'attr': {'class': 'form-control','value': ''} }) }}
+                    {{ form_errors(f1.titre)  }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword"  class="col-sm-2 col-form-label">Theme</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f1.theme, { 'attr': {'class': 'form-control','value': ''} }) }}
+                    {{ form_errors(f1.theme)  }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Localisation</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f1.localisation, { 'attr': {'class': 'form-control','value': ''} }) }}
+
+                    {{ form_errors(f1.localisation)  }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Couleur</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f1.couleur, { 'attr': {'class': 'form-control form-control-color','value': ''} }) }}
+
+                    {{ form_errors(f1.couleur)  }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Photo</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f1.url, { 'attr': {'class': 'form-control','value': ''} }) }}
+                    {{ form_errors(f1.url) }}
+                </div>
+            </div> <div class="modal-footer">
+
+
+                {{ form_widget(f1.submit) }}
+            </div>
+            {{ form_end(f1)}}
+        </div>
+
+
+
         <div class="pictures">
             {% for f in tab %}
 
@@ -9,73 +57,15 @@
                     <img src="{{ asset(f.url)}}" class="card-img-top" alt="..." >
                     <div class="card-body"  style="width: 18rem;">
                         <h5 class="card-title">{{ f.titre }}</h5>
-                        <a href={{ path('ShowPic',{'id':f.idPhoto}) }} class="btn btn-primary" >Go somewhere</a>
+                        <a href={{ path('ShowPic',{'id':f.idPhoto}) }} class=" btn btn-primary" >Affichier Photo</a>
+
                     </div>
                 </div>
 
             {% endfor %}
         </div>
     </div>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Ajouter photo
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajouter une photo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{ form_start(f1)}}
-                    <div class="mb-3 row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Titre</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(f1.titre, { 'attr': {'class': 'form-control','value': ''} }) }}
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputPassword"  class="col-sm-2 col-form-label">Theme</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(f1.theme, { 'attr': {'class': 'form-control','value': ''} }) }}
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Localisation</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(f1.localisation, { 'attr': {'class': 'form-control','value': ''} }) }}
-
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Couleur</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(f1.couleur, { 'attr': {'class': 'form-control form-control-color','value': ''} }) }}
-
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Photo</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(f1.url, { 'attr': {'class': 'form-control','value': ''} }) }}
-                        </div>
-                    </div> <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                        {{ form_widget(f1.submit) }}
-                    </div>
-                    {{ form_end(f1)}}
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-
-</div>
     <script>
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );

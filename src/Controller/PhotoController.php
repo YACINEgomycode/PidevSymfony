@@ -114,16 +114,17 @@ class PhotoController extends AbstractController
             ->add('theme')
             ->add('couleur')
             ->add('localisation')
-            ->add('submit', SubmitType::class,[
+            ->add('Modifier', SubmitType::class,[
                 'attr' => ['class' => 'btn btn-primary'],
             ])
         ->getForm();
         $form->handleRequest($req);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em=$this->getDoctrine()->getManager();
 
-            $em->flush();
+            $em->flush($Photo);
 
             return $this->redirectToRoute('rechercheP');
         }
@@ -134,4 +135,23 @@ class PhotoController extends AbstractController
         ));
     }
 
+    /**
+     * @param PhotoRepository $prep
+     * @param $id
+     * @param Request $req
+     * @return Response
+     * @Route ("/photo/DeleteOne/{id}",name="DeletePic")
+     */
+    public function DeletePhoto(PhotoRepository $prep, $id, Request $req){
+        $Photo=$prep->find($id);
+        $Pics=$prep->findAll();
+
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($Photo);
+        $em->flush();
+
+
+
+        return $this->redirectToRoute('recherche_nsc');
+    }
 }

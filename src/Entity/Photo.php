@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Photo
  *
@@ -23,42 +23,43 @@ class Photo
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="url", type="string", length=100, nullable=false)
      */
     private $url;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min=4)
      * @ORM\Column(name="titre", type="string", length=30, nullable=false)
      */
     private $titre;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="theme", type="string", length=50, nullable=false)
      */
     private $theme;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="date_ajout", type="string", length=255, nullable=false)
      */
     private $dateAjout;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="couleur", type="string", length=25, nullable=false)
      */
     private $couleur;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank
      * @ORM\Column(name="localisation", type="string", length=35, nullable=false)
      */
     private $localisation;
@@ -95,7 +96,7 @@ class Photo
         return $this->titre;
     }
 
-    public function setTitre(string $titre): self
+    public function setTitre(?string $titre): self
     {
         $this->titre = $titre;
 

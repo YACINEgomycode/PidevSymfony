@@ -1,6 +1,4 @@
 * {
-    color: white;
-
     box-sizing: border-box ;
     margin: 0;
     font-weight: 400;
@@ -8,7 +6,6 @@
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 body{
-    color: white;
     background-color: #1f1f22;
     overflow-x: hidden;
 }
@@ -71,14 +68,26 @@ width: 500px;
 
 .pictures{
     display: flex;
-    justify-content: center;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 56% !important;
+    margin-right: 20px;
+    margin-left: 50px;
+    height: fit-content;
+
 }
 .card-img-top{
     height: 250px !important;
 }
 .card{
-    margin:20px;
-    background-color: #1f1f22 !important;
+
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+    min-width: min-content !important;
+    margin: 20px !important;
+}
+.col-form-label{
+    width:17% !important;
 }
 
 .my-nav{
@@ -435,4 +444,76 @@ footer div{
 
 .col-form-label{
     color: #1f1f22;
+}
+
+.Modif-body{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+}
+
+.Modif-body img{
+    height: 300px;
+    width: 500px;
+
+    box-shadow: 0 0 0.75rem #ccc;
+    -webkit-box-shadow:0 0 0.75rem #ccc;
+    -moz-box-shadow: 0 0 0.75rem #ccc;
+
+}
+.modif-from{
+    width: 500px;
+
+    background-color: honeydew;
+    border-radius: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.modif-from label{
+    font-weight: bold;
+    width: 100px;
+}
+.add-photo-page{
+    display: flex;
+    justify-content: space-evenly;
+}
+.modal-bodyy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-bodyy .modal-footer{
+    display: flex;
+    justify-content: center;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+    border-radius: 2px;
+    width: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #0d6efd;
+    border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4c4cfd;
+}
+
+ ul {
+    margin-bottom: -1rem !important;
+    color: #AA3333;
 }
