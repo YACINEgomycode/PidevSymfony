@@ -52,7 +52,6 @@ class Photo
 
     /**
      * @var string
-     * @Assert\NotBlank
      * @ORM\Column(name="couleur", type="string", length=25, nullable=false)
      */
     private $couleur;

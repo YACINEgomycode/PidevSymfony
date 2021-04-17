@@ -7,6 +7,7 @@ use App\Form\PhotoAddFormType;
 use App\Repository\PhotoRepository;
 use App\Repository\UserrRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,13 +62,14 @@ class PhotoController extends AbstractController
         $Photo = new Photo();
         $form = $this->createForm(PhotoAddFormType::class, $Photo);
         $Photo->setIdu($users);
+        $Photo->setDateAjout(date("Y/m/d"));
         $form->handleRequest($req);
         if($form->isSubmitted()&& $form->isValid()){
             $file = $form['url']->getData();
             $directory=".\assets\images";
             $file->move($directory, $file->getClientOriginalName());
             $Photo->setUrl($directory."\\".$file->getClientOriginalName());
-            $Photo->setDateAjout("abcd");
+
             $Photo->setCouleur($form['couleur']->getData());
             $Photo->setTheme($form['theme']->getData());
             $Photo->setLocalisation($form['localisation']->getData());
@@ -112,7 +114,9 @@ class PhotoController extends AbstractController
         $form = $this->createFormBuilder($Photo)
             ->add('titre')
             ->add('theme')
-            ->add('couleur')
+            ->add('couleur',ColorType::class,[
+                'attr' => ['class' => 'form-control form-control-color'],
+            ])
             ->add('localisation')
             ->add('Modifier', SubmitType::class,[
                 'attr' => ['class' => 'btn btn-primary'],

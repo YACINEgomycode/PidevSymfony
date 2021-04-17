@@ -10,45 +10,16 @@
     <div><img src="{{ asset(pic.url)}}" class="card-img-top" alt="..." ></div>
 
     <div class="modif-from">
-    {{ form_start(f1,{'attr': {'novalidate': 'novalidate'}} )}}
+        <div class="modal-body">
+        {{ form_start(f1,{'attr': {'novalidate': 'novalidate'}} )}}
 
-    <div class="mb-3 row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Titre</label>
-        <div class="col-sm-10">
-            {{ form_widget(f1.titre, { 'attr': {'class': 'form-control','value': ''} }) }}
-            {{ form_errors(f1.titre)  }}
+        <div class="modal-footer">
+
+            <a href={{ path('recherche_nsc') }} class=" btn btn-secondary" >Annuler</a>
+            {{ form_widget(f1.Modifier)}}
+            <a href={{ path('DeletePic',{'id':pic.idPhoto}) }} class=" btn btn-danger" >Supprimer</a></div>
+        {{ form_end(f1) }}
         </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="inputPassword"  class="col-sm-2 col-form-label">Theme</label>
-        <div class="col-sm-10">
-            {{ form_widget(f1.theme, { 'attr': {'class': 'form-control','value': ''} }) }}
-            {{ form_errors(f1.theme) }}
-        </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Localisation  {{ form_errors(f1.localisation) }}</label>
-
-        <div class="col-sm-10">
-            {{ form_widget(f1.localisation) }}
-
-        </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Couleur</label>
-        <div class="col-sm-10">
-            {{ form_widget(f1.couleur, { 'attr': {'class': 'form-control form-control-color','value': ''} }) }}
-            {{ form_errors(f1.couleur) }}
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a href={{ path('recherche_nsc') }} class=" btn btn-secondary" >Annuler</a>
-
-        {{ form_widget(f1.Modifier)}}
-        <a href={{ path('DeletePic',{'id':pic.idPhoto}) }} class=" btn btn-danger" >Supprimer</a>
-    </div>
-
-        {{ form_end(f1)}}
     </div>
     <script>
         if ( window.history.replaceState ) {

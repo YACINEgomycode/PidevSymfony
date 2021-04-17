@@ -6,6 +6,7 @@ use App\Entity\Photo;
 use Doctrine\DBAL\Types\TextType;
 use phpDocumentor\Reflection\Types\String_;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,7 @@ class PhotoAddFormType extends AbstractType
             ->add('url',FileType::class)
             ->add('titre')
             ->add('theme')
-            ->add('couleur')
+            ->add('couleur',ColorType::class)
             ->add('localisation')
             ->add('submit', SubmitType::class,[
                 'attr' => ['class' => 'btn btn-primary'],

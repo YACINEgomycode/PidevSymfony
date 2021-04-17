@@ -517,3 +517,12 @@ footer div{
     margin-bottom: -1rem !important;
     color: #AA3333;
 }
+
+.ma{
+display: none;
+}
+.myclass{
+    display: flex;
+    width: 100%;
+
+}

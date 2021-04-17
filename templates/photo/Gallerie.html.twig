@@ -1,5 +1,33 @@
 {%  extends 'base.html.twig' %}
+{% block javascripts %}
+    <meta charset="utf-8" />
+    <script type='text/javascript'>
+        var map;
+
+        function GetMap() {
+            map = new Microsoft.Maps.Map('#myMap', {});
+
+            Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+                var manager = new Microsoft.Maps.AutosuggestManager({ map: map });
+                manager.attachAutosuggest('.searchBox', '#searchBoxContainer', selectedSuggestion);
+            });
+        }
+
+        function selectedSuggestion(result) {
+            //Remove previously selected suggestions from the map.
+            map.entities.clear();
+
+            //Show the suggestion as a pushpin and center map over it.
+            var pin = new Microsoft.Maps.Pushpin(result.location);
+            map.entities.push(pin);
+            map.setView({ bounds: result.bestView });
+        }
+
+    </script>
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Arew96jBgkLtZofYIO503lTVv15wSq6VoFyI0WYbuXYk0TNQNoTM3tycYcW5FwEL' async defer></script>
+{% endblock %}
 {% block body %}
+    <div id="myMap" class="ma" style="position:relative;width:100%;height:200px;"></div>
     <div class="add-photo-page">
 
         <div class="modal-bodyy">
@@ -20,8 +48,8 @@
             </div>
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Localisation</label>
-                <div class="col-sm-10">
-                    {{ form_widget(f1.localisation, { 'attr': {'class': 'form-control','value': ''} }) }}
+                <div class="col-sm-10" id='searchBoxContainer'>
+{{ form_widget(f1.localisation, { 'attr': {'class': 'searchBox','onkeypress': 'myFunction()'} }) }}
 
                     {{ form_errors(f1.localisation)  }}
                 </div>
@@ -29,7 +57,7 @@
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Couleur</label>
                 <div class="col-sm-10">
-                    {{ form_widget(f1.couleur, { 'attr': {'class': 'form-control form-control-color','value': ''} }) }}
+                    {{ form_widget(f1.couleur, { 'attr': {'class': 'form-control form-control-color','value': ''}}) }}
 
                     {{ form_errors(f1.couleur)  }}
                 </div>
@@ -64,7 +92,16 @@
 
             {% endfor %}
         </div>
+
     </div>
+
+    <script>
+        function myFunction() {
+            document.getElementById('myMap').className = "myclass";
+        }
+
+    </script>
+
 
     <script>
         if ( window.history.replaceState ) {
