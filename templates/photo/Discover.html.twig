@@ -1,25 +1,28 @@
 {%  extends 'base.html.twig' %}
+ {% block NavContent %}
+
+ {% endblock %}
 {% block body %}
-<form method="POST" class="search_form" name="rs" action="{{ path('rechercheP') }}">
-    <div class="search_bar">
-    <label class="col-sm-2 col-form-label">Recherche</label>
-        <div class="Search">
-        <input type="text" style="width: 18rem;"class="form-control" name="tfrech"/>
-        <input type="Submit" class="btn btn-primary" value="Search"/></div>
+
+    <div class="search-content" >
+        <form method="POST" class="search_form" name="rs" action="{{ path('rechercheP') }}">
+            <div class="search_bar">
+
+
+                <input type="text"  style="width: 400px" class="search-input" name="tfrech" placeholder="Rechercher"/>
+                <input type="Submit" class="btn btn-primary" value="Search"/>
+            </div>
+        </form>
     </div>
-</form>
-    <div class="pictures">
+<div class="photos-search">
+    <div class="pic-explore">
 {% for f in tab %}
 
-    <div class="card" style="width: 18rem;">
-        <img src="{{ asset(f.url)}}" class="card-img-top" alt="..." >
-        <div class="card-body"  style="width: 18rem;">
-            <h5 class="card-title">{{ f.titre }}</h5>
-            <a href={{ path('ShowPic',{'id':f.idPhoto}) }} class="btn btn-primary" >Modifier</a>
-
-        </div>
+    <div style="width: 18rem">
+        <a href={{ path('comment',{'id':f.idPhoto}) }} ><img src="{{ asset(f.url)}}" class="search-img" alt="..." ></a>
     </div>
 
 {% endfor %}
     </div>
+</div>
 {% endblock %}

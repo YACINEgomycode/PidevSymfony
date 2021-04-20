@@ -81,6 +81,7 @@ class PhotoController extends AbstractController
         return $this->render('photo/Gallerie.html.twig',array(
             'tab' => $Pics,
             'f1' => $form->createView(),
+            'user'=> $users,
         ));
 
     }
@@ -93,13 +94,13 @@ class PhotoController extends AbstractController
      * @return Response
      * @Route ("/photo/discover",name="rechercheP")
      */
-    public function Search(PhotoRepository $rep, Request $req){
-        $data=$req->get('tfrech');
-        $photos=$rep->searchPhoto($data);
-        return $this->render("photo/Discover.html.twig",["tab"=>$photos]);
+        public function Search(PhotoRepository $rep, Request $req){
+            $data=$req->get('tfrech');
+            $photos=$rep->searchPhoto($data);
+            return $this->render("photo/Discover.html.twig",["tab"=>$photos]);
 
 
-    }
+        }
 
     /**
      * @param PhotoRepository $prep

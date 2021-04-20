@@ -47,4 +47,19 @@ class CommentaireRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function myComments($idu){
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.idu=:idu')
+            ->setParameter('idu',$idu)
+            ->getQuery()
+            ->getResult();
+    }
+    public function allComments($idu){
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.idu !=:idu')
+            ->setParameter('idu',$idu)
+            ->getQuery()
+            ->getResult();
+    }
 }

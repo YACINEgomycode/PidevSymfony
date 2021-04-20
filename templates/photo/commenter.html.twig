@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    <meta charset="utf-8" />
+    <script type='text/javascript'>
+        function loadMapScenario() {
+            var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                /* No need to set credentials if already passed in URL */
+                center: new Microsoft.Maps.Location(47.624527, -122.355255),
+                zoom: 8,
+                mapTypeId: Microsoft.Maps.MapTypeId.canvasDark,
+            });
+            Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
+                var searchManager = new Microsoft.Maps.Search.SearchManager(map);
+                var requestOptions = {
+                    bounds: map.getBounds(),
+                    where: '{{ pic.localisation }}',
+                    callback: function (answer, userData) {
+                        map.setView({ bounds: answer.results[0].bestView });
+                        map.entities.push(new Microsoft.Maps.Pushpin(answer.results[0].location));
+                    }
+                };
+                searchManager.geocode(requestOptions);
+            });
+
+        }
+    </script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Arew96jBgkLtZofYIO503lTVv15wSq6VoFyI0WYbuXYk0TNQNoTM3tycYcW5FwEL&callback=loadMapScenario' async defer></script>
+
+{% endblock %}
+{% block body %}
+
+    <div class="comment-photo-page">
+        <div class="title">
+<h1 class="pic-title">{{ pic.titre }}</h1>
+        </div>
+        <div class="under-title"><button class="home-btn">Home</button><p>Voir et commenter la Photo</p></div>
+        <div id='myMap' style='width: 100vw; height: 400px;'></div>
+        <div class="comment-body">
+        <div><img src="{{ asset(pic.url)}}" class="showed-pic" alt="..." ></div>
+        <div class="comments-section">
+            <div class="comments-boder">
+            <div class="comments">
+{% for i in comms %}
+
+<div class="one-comment">
+    <p>{{ i.nomUser }}-{{ i.comm }}</p>
+
+
+
+    <a href={{ path('delcomm',{'id':i.idcomm,'idp':pic.idPhoto}) }} > <img class="dell" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Black_x.svg/2000px-Black_x.svg.png"></a>
+    <!-- Button trigger modal -->
+    <img class="modiff" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr.svg/1000px-OOjs_UI_icon_edit-ltr.svg.png" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop{{i.idcomm}}">
+
+</div>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop{{i.idcomm}}"   tabindex="-1"  aria-hidden="true">
+        <div class="modal-dialog"   id="{{i.idcomm}}" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modif-from">
+                <div class="modal-body">
+
+                    <form method="POST"  name="rs" action="{{ path('modifcomm',{'id':i.idcomm,'idp':pic.idPhoto}) }}">
+                        <div class="search_bar">
+                            <input type="text" style="width: 15rem;text-align: center" class="form-control" name="tfmodif" placeholder="Rechercher"/>
+                            <input type="Submit" class="btn btn-primary" value="Search"/>
+                        </div>
+                    </form>
+
+                    <div class="modal-footer">
+
+
+
+                        <a href={{ path('modifcomm',{'id':i.idcomm,'idp':pic.idPhoto}) }} class=" btn btn-danger" >Supprimer</a></div>
+
+
+                </div></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                {% endfor %}
+
+                {% for j in otherComms %}
+                <div class="one-comment">
+                    <p>{{ j.nomUser }}-{{ j.comm }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="add-comm">
+                <form method="POST" class="add-cpmment" name="rs" action="{{  path('comme',{'id':pic.idPhoto}) }}">
+                    <div class="commenty">
+                        <input type="text" style="width: 12rem;text-align: center" class="form-control" name="tfcomment" placeholder="Commenter"/>
+                        <input type="Submit" class="btn-add-comment" value="Commenter"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        function myFunction() {
+
+            if(document.getElementById('hidden_form').disabled== true){
+                document.getElementById('hidden_form').disabled= false;
+            }
+        }
+
+    </script>
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+{% endblock %}
