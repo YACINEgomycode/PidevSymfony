@@ -5,16 +5,43 @@
 
 
 
+<div style="height: 400px;background-image: url(https://images.unsplash.com/photo-1531265726475-52ad60219627?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=768&q=80);background-position: bottom;">
+    <div class="titlegl">
+        <div class="glitch" data-text="Modifier Photo">Modifier Photo</div>
+        <div class="glow">Modifier Photo</div>
 
+</div>
+</div>
 <div class="Modif-body">
-    <div><img src="{{ asset(pic.url)}}" class="card-img-top" alt="..." ></div>
+    <div class="modif-pic"><img src="{{ asset(pic.url)}}" class="card-img-top" alt="..." ></div>
 
     <div class="modif-from">
         <div class="modal-body">
         {{ form_start(f1,{'attr': {'novalidate': 'novalidate'}} )}}
 
-        <div class="modal-footer">
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Titre</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f1.titre, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(f1.titre)  }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Theme</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f1.theme, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(f1.theme)  }}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">Couleur</label>
+                <div class="col-sm-10">
+                    {{ form_widget(f1.couleur)}}
+                    {{ form_errors(f1.couleur)  }}
+                </div>
+            </div>
 
+            <div>
             <a href={{ path('recherche_nsc') }} class=" btn btn-secondary" >Annuler</a>
             {{ form_widget(f1.Modifier)}}
             <a href={{ path('DeletePic',{'id':pic.idPhoto}) }} class=" btn btn-danger" >Supprimer</a></div>

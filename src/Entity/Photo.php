@@ -23,7 +23,9 @@ class Photo
 
     /**
      * @var string
-     * @Assert\NotBlank
+     * @Assert\File(mimeTypes = {"image/jpeg", "image/gif", "image/png"},
+     *     mimeTypesMessage = "Please upload a valid image"
+     * )
      * @ORM\Column(name="url", type="string", length=100, nullable=false)
      */
     private $url;

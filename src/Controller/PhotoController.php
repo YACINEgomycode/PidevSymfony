@@ -118,7 +118,6 @@ class PhotoController extends AbstractController
             ->add('couleur',ColorType::class,[
                 'attr' => ['class' => 'form-control form-control-color'],
             ])
-            ->add('localisation')
             ->add('Modifier', SubmitType::class,[
                 'attr' => ['class' => 'btn btn-primary'],
             ])
