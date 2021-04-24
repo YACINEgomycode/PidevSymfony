@@ -36,7 +36,8 @@
         <div class="under-title"><button class="home-btn">Home</button><p>{{ pic.localisation }}</p></div>
         <div id='myMap' style='width: 100vw; height: 400px;'></div>
         <div class="comment-body">
-        <div style="width: 50%;height: 100%;padding: 60px"><img src="{{ asset(pic.url)}}" class="showed-pic" alt="..." ></div>
+        <div style="width: 50%;height: 100%;padding: 60px"><img src="{{ asset(pic.url)}}" class="showed-pic" alt="..." >
+        </div>
         <div class="comments-section">
             <div class="comments-boder">
             <div class="comments">
@@ -126,20 +127,10 @@
                             </div>
                         </div>
                     </form>
-
-
-
-
                 </div></div>
-
-
-
             </div>
         </div>
-    </div>
-
-
-                {% endfor %}
+    </div> {% endfor %}
 
                 {% for j in otherComms %}
                 <div class="one-comment">
@@ -159,18 +150,11 @@
         </div>
     </div>
     </div>
-    <script>
-        function myFunction() {
 
-            if(document.getElementById('hidden_form').disabled== true){
-                document.getElementById('hidden_form').disabled= false;
-            }
-        }
-
-    </script>
     <script>
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
         }
     </script>
+
 {% endblock %}

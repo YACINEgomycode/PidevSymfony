@@ -48,17 +48,27 @@ class CommentaireRepository extends ServiceEntityRepository
     }
     */
 
-    public function myComments($idu){
+    public function myComments($idu,$phs){
         return $this->createQueryBuilder('c')
             ->andWhere('c.idu=:idu')
+            ->andWhere('c.idPhoto=:phs')
             ->setParameter('idu',$idu)
+            ->setParameter('phs', $phs)
             ->getQuery()
             ->getResult();
     }
-    public function allComments($idu){
+    public function allComments($utils,$phs){
+        $query = $this->getEntityManager()
+            ->createQuery('SELECT c FROM \App\Entity\Commentaire c WHERE  c.idu!=:utils AND  c.idPhoto=:phs')
+            ->setParameter('utils', $utils)
+            ->setParameter('phs', $phs);
+        return $query->getResult();
+    }
+
+    public function backComments($id){
         return $this->createQueryBuilder('c')
-            ->andWhere('c.idu !=:idu')
-            ->setParameter('idu',$idu)
+            ->andWhere('c.idPhoto=:id')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
     }

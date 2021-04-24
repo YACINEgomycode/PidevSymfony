@@ -695,18 +695,12 @@ display: none;
     height: 20px;
     width: 20px;
 }
-.search-content{
+.search-content {
     display: flex;
     justify-content: center;
     background-position: right;
-    height: 500px;
-    background-image: linear-gradient(
-            180deg
-            , rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 20%), linear-gradient(
-            0deg
-            , #1F1F1B 0%, rgba(31, 31, 27, 0) 30%), linear-gradient(
-            0deg
-            , rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(https://im0-tub-ru.yandex.net/i?id=25c36ab2cb93695ce6745fb29d741694&n=11);
+    height: 150px;
+    background-image: linear-gradient(to top, #1f1f1b, #1f1f1b, #1f1f1b, #1f1f1b, #1f1f1b);
 }
 .search-input{
     width: 15rem;

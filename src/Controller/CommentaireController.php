@@ -37,9 +37,9 @@ class CommentaireController extends AbstractController
      */
     public function ShowComments(PhotoRepository $prep,UserrRepository $urep, $id,CommentaireRepository $crep,Request $req){
         $Photo=$prep->find($id);
-        $users=$urep->find(25);
-        $comments=$crep->myComments($users->getIdu());
-        $allomms=$crep->allComments($users->getIdu());
+        $users=$urep->find(24);
+        $comments=$crep->myComments($users->getIdu(),$id);
+        $allomms=$crep->allComments($users->getIdu(),$id);
         return $this->render("photo/commenter.html.twig",array(
             'pic' => $Photo,
             'comms' => $comments,
@@ -69,8 +69,6 @@ class CommentaireController extends AbstractController
         $em->flush();
         $Photo=$prep->find($id);
 
-        $comments=$crep->myComments($users->getIdu());
-        $allomms=$crep->allComments($users->getIdu());
 
 
         return $this->redirect($req->server->get('HTTP_REFERER'));
@@ -100,8 +98,7 @@ class CommentaireController extends AbstractController
 
 
         $Photo=$prep->find($idp);
-        $comments=$crep->myComments($users->getIdu());
-        $allomms=$crep->allComments($users->getIdu());
+
 
         return $this->redirect($req->server->get('HTTP_REFERER'));
     }
@@ -126,8 +123,39 @@ class CommentaireController extends AbstractController
         $Photo=$prep->find($idp);
 
         $users=$urep->find(25);
-        $comments=$crep->myComments($users->getIdu());
-        $allomms=$crep->allComments($users->getIdu());
+
+        return $this->redirect($req->server->get('HTTP_REFERER'));
+    }
+
+
+    /**
+     * @param CommentaireRepository $crep
+     * @param Request $req
+     * @param $id
+     * @return Response
+     * @Route ("commentaire/commentback/{id}",name="commentback")
+     */
+    public function ShowCommentsBack(CommentaireRepository $crep,$id,Request $req){
+        $comments=$crep->backComments($id);
+
+        return $this->render("commentaire/Commentaireback.html.twig",[ "comments"=>$comments]);
+    }
+
+    /**
+     * @param CommentaireRepository $crep
+     * @param $id
+     * @param Request $req
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route ("/commentaire/deleteback/{id}",name="delback")
+     */
+    public function DeleteCommentBack(CommentaireRepository $crep,$id,Request $req){
+
+        $Comment=$crep->find($id);
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($Comment);
+        $em->flush();
+
+
         return $this->redirect($req->server->get('HTTP_REFERER'));
     }
 }

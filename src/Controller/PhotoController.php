@@ -36,6 +36,13 @@ class PhotoController extends AbstractController
             'controller_name' => 'PhotoController',
         ]);
     }
+    /**
+     * @Route ("/photo/tmp")
+     */
+    public function index2(): Response
+    {
+        return $this->render('photo/templateBack.html.twig');
+    }
 
     /**
      * @Route("/photo/gallerie", name="photoGall")
@@ -57,8 +64,9 @@ class PhotoController extends AbstractController
      */
     public function addPhoto(Request $req, UserrRepository $urep,PhotoRepository $prep): Response
     {
-        $Pics=$prep->findAll();
-        $users=$urep->find(24);
+
+        $users=$urep->find(25);
+        $Pics=$prep->UserhPhoto(25);
         $Photo = new Photo();
         $form = $this->createForm(PhotoAddFormType::class, $Photo);
         $Photo->setIdu($users);
@@ -158,4 +166,48 @@ class PhotoController extends AbstractController
 
         return $this->redirectToRoute('recherche_nsc');
     }
+
+
+    /**
+     * @param PhotoRepository $prep
+     * @param Request $req
+     * @return Response
+     * @Route ("/photo/photoback")
+     */
+    public function ShowPhotoBack(PhotoRepository $prep, Request $req){
+        $Photo=$prep->findAll();
+        return $this->render("photo/photoback.html.twig",[ "pic"=>$Photo]);
+
+    }
+    /**
+     * @param PhotoRepository $prep
+     * @param $id
+     * @param Request $req
+     * @return Response
+     * @Route ("/photo/Deleteback/{id}",name="Deleteback")
+     */
+    public function DeletePhotoback(PhotoRepository $prep, $id, Request $req, \Swift_Mailer $mailer){
+        $Photo=$prep->find($id);
+        $Pics=$prep->findAll();
+        $message= (new \Swift_Message('Alert'))
+            ->setFrom('jlassi.med.yacine@gmail.com')
+            ->setTo('mohamedyacine.jlassi@esprit.tn')
+            ->setBody(
+                'Photo supprimé'.$Photo->getTitre(),
+                'text/html'
+            )
+        ;
+        $mailer->send($message);
+        $this->addFlash('message',' est envoyé');
+
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($Photo);
+        $em->flush();
+
+
+
+        return $this->redirect($req->server->get('HTTP_REFERER'));
+    }
+
+
 }

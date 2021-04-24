@@ -55,4 +55,11 @@ class PhotoRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function UserhPhoto($id){
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.idu=:id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult();
+    }
 }
