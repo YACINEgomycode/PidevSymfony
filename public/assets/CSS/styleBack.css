@@ -21133,3 +21133,11 @@ div.tagsinput {
   flex-grow: 1; }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+.back-img:hover{
+  border-radius: 20px;
+  height: 100px;
+  width: 100px;
+  -webkit-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}

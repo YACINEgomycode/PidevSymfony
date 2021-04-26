@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% block javascripts %}{% endblock %}
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{{ asset('assets/CSS/PhotoStyle.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
     <link rel="stylesheet" href="{{ asset('assets/CSS/PhotoStyle.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -28,7 +28,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">𝘧𝘰𝘵𝘪𝘧𝘺</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars ml-1"></i>
@@ -47,9 +47,8 @@
 <!-- Masthead-->
 <header class="masthead">
     <div class="container">
-        <div class="masthead-subheading">Welcome To Our Studio!</div>
-        <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+        {% block head %}{% endblock %}
+
     </div>
 </header>
 <!-- Services-->
@@ -69,19 +68,29 @@
                     text-anchor: middle;
                 }</style></svg></div>
     <div><h3>Rejoignez Fotify et developpez vos competence de photographie</h3></div>
-    <div class="follow"><h6>Follow us:</h6> <h6 class="social">Facebook</h6cla> <h6>,</h6> <h6 class="social">Instagram</h6></div>
+    <div class="follow"><h6>Follow us:</h6> <h6 class="social">Facebook</h6> <h6>,</h6> <h6 class="social">Instagram</h6></div>
     <div><p class="last">© 2021 Tous droits réservés.</p></div>
 </footer>
 
 <!-- Bootstrap core JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Third party plugin JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<!-- Contact form JS-->
-<script src="assets/mail/jqBootstrapValidation.js"></script>
-<script src="assets/mail/contact_me.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
-</body>
-</html>
+
+<script>
+    // When the user scrolls down 50px from the top of the document, resize the header's font size
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.getElementById("mainNav").style.backgroundColor = "#292829";
+            document.getElementById("mainNav").style.height="70px";
+            document.getElementById("mainNav").style.boxShadow='0 8px 2px -2px rgba(0,0,0,.2)';
+
+        }
+        else {
+            document.getElementById("mainNav").style.backgroundColor = "transparent";
+
+
+        }
+    }
+</script>

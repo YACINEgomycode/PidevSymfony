@@ -3,26 +3,26 @@
 {% block body %}
 
 
-    <div style="height: 800px">
+    <div style="margin-bottom: 50px">
     <table id="myTable" class="table table-dark table-striped" >
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Theme</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Supprimer</th>
 
         </tr>
         </thead>
         <tbody>
         {% for i in pic %}
         <tr>
-            <th scope="row">1</th>
+            <th scope="row">{{ loop.index }}</th>
             <td>{{ i.titre }}</td>
-            <td>{{ i.titre }}</td>
-            <td><a href={{ path('commentback',{'id':i.idPhoto}) }} ><img src="{{ asset(i.url)}}" class="search-img" alt="..." ></a></td>
-            <td><a href={{ path('Deleteback',{'id':i.idPhoto}) }} class=" btn btn-danger" >Supprimer</a></td>
+            <td>{{ i.theme }}</td>
+            <td><a href={{ path('commentback',{'id':i.idPhoto}) }} ><img src="{{ asset(i.url)}}" class="back-img" alt="..." ></a></td>
+            <td><a href={{ path('Deleteback',{'id':i.idPhoto}) }} class="btn btn-outline-danger" >Supprimer</a></td>
 
         </tr>
             {% endfor %}
@@ -30,7 +30,11 @@
 
         </tbody>
     </table>
+
     </div>
+    <div style="display: flex;justify-content: center">
+        {{ knp_pagination_render(pic) }}</div>
+
     <script>
         function myFunction() {
             var input, filter, table, tr, td, i, txtValue;

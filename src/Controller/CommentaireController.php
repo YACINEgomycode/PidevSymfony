@@ -63,7 +63,7 @@ class CommentaireController extends AbstractController
         $Commentaire->setComm($data);
         $Commentaire->setIdPhoto($id);
         $Commentaire->setIdu($users->getIdu());
-        $Commentaire->setNomUser($users->getNom());
+        $Commentaire->setNomUser($users->getNom() . "  " . $users->getPrenom());
         $em=$this->getDoctrine()->getManager();
         $em->persist($Commentaire);
         $em->flush();

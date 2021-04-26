@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'template.html.twig' %}
 {% block javascripts %}
     <meta charset="utf-8" />
     <script type='text/javascript'>
@@ -27,12 +27,16 @@
     <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Arew96jBgkLtZofYIO503lTVv15wSq6VoFyI0WYbuXYk0TNQNoTM3tycYcW5FwEL&callback=loadMapScenario' async defer></script>
 
 {% endblock %}
+{% block head %}
+<div class="info">
+    <h1 class="masthead-subheading">Voir et Commenter</h1>
+    <p class="masthead-heading text-uppercase">la photo {{ pic.titre }}</p>
+</div>
+{% endblock %}
 {% block body %}
 
     <div class="comment-photo-page">
-        <div class="title">
-<h1 class="pic-title">{{ pic.titre }}</h1>
-        </div>
+
         <div class="under-title"><button class="home-btn">Home</button><p>{{ pic.localisation }}</p></div>
         <div id='myMap' style='width: 100vw; height: 400px;'></div>
         <div class="comment-body">

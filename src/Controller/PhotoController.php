@@ -6,6 +6,7 @@ use App\Entity\Userr;
 use App\Form\PhotoAddFormType;
 use App\Repository\PhotoRepository;
 use App\Repository\UserrRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,15 +59,15 @@ class PhotoController extends AbstractController
     /**
      * @Route("/photo/add",name="recherche_nsc")
      * @param Request $req
+     * @param PaginatorInterface $paginator
      * @param UserrRepository $urep
      * @param PhotoRepository $prep
      * @return Response
      */
-    public function addPhoto(Request $req, UserrRepository $urep,PhotoRepository $prep): Response
+    public function addPhoto(Request $req, UserrRepository $urep,PhotoRepository $prep,PaginatorInterface $paginator): Response
     {
 
-        $users=$urep->find(25);
-        $Pics=$prep->UserhPhoto(25);
+        $users=$urep->find(24);
         $Photo = new Photo();
         $form = $this->createForm(PhotoAddFormType::class, $Photo);
         $Photo->setIdu($users);
@@ -84,13 +85,20 @@ class PhotoController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($Photo);
             $em->flush();
-            $Pics=$prep->findAll();
         }
-        return $this->render('photo/Gallerie.html.twig',array(
+            $donnees=$prep->UserhPhoto($users->getIdu());
+            $Pics= $paginator->paginate(
+                $donnees,
+                $req->query->getInt('page',1),
+                3
+            );
+
+
+        return $this->render('photo/Gallerie.html.twig',[
             'tab' => $Pics,
             'f1' => $form->createView(),
             'user'=> $users,
-        ));
+        ]);
 
     }
 
@@ -102,9 +110,14 @@ class PhotoController extends AbstractController
      * @return Response
      * @Route ("/photo/discover",name="rechercheP")
      */
-        public function Search(PhotoRepository $rep, Request $req){
+        public function Search(PhotoRepository $rep, Request $req, PaginatorInterface $paginator){
             $data=$req->get('tfrech');
-            $photos=$rep->searchPhoto($data);
+            $donnees=$rep->searchPhoto($data);
+            $photos= $paginator->paginate(
+                $donnees,
+                $req->query->getInt('page',1),
+                3
+            );
             return $this->render("photo/Discover.html.twig",["tab"=>$photos]);
 
 
@@ -174,9 +187,15 @@ class PhotoController extends AbstractController
      * @return Response
      * @Route ("/photo/photoback")
      */
-    public function ShowPhotoBack(PhotoRepository $prep, Request $req){
-        $Photo=$prep->findAll();
-        return $this->render("photo/photoback.html.twig",[ "pic"=>$Photo]);
+    public function ShowPhotoBack(PhotoRepository $prep, Request $req, PaginatorInterface $paginator){
+
+        $donnees=$prep->findAll();
+        $Pics= $paginator->paginate(
+            $donnees,
+            $req->query->getInt('page',1),
+            4
+        );
+        return $this->render("photo/photoback.html.twig",[ "pic"=>$Pics]);
 
     }
     /**
